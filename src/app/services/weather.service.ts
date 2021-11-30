@@ -10,7 +10,7 @@ export class WeatherService {
   // Generate your own API key:
   // https://openweathermap.org/api
   APIkey = 'a0785b34a3a6db1b43f873064326248e';
-  URL = 'http://api.openweathermap.org/data/2.5/';
+  URL = 'https://api.openweathermap.org/data/2.5/';
 
   constructor(private http: HttpClient) {}
 
