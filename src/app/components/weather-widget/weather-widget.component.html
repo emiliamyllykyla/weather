@@ -1,0 +1,66 @@
+<div class="weather-widget">
+  <p class="weather-widget-location">
+    {{ this.data.name }}, {{ this.data.sys.country }}
+  </p>
+  <p class="weather-widget-temp">
+    {{ this.data.main.temp | number: "1.0-0" }} °C
+  </p>
+  <img
+    src="http://openweathermap.org/img/wn/{{
+      this.data.weather[0].icon
+    }}@4x.png"
+    class="weather-widget-img"
+  />
+  <div class="weather-widget-info">
+    <p class="weather-widget-minmax">
+      <img
+        src="../../../assets/icons/temperature.png"
+        class="weather-widget-smicon"
+      />
+      {{ this.data.main.temp_min | number: "1.0-0" }} /
+      {{ this.data.main.temp_max | number: "1.0-0" }} °C
+    </p>
+    <p class="weather-widget-feelslike">
+      Feels like: {{ this.data.main.feels_like | number: "1.0-0" }} °C
+    </p>
+    <p class="weather-widget-humidity">
+      <img
+        src="../../../assets/icons/humidity.png"
+        class="weather-widget-smicon"
+      />
+      {{ this.data.main.humidity }} %
+    </p>
+    <p class="weather-widget-wind">
+      <img src="../../../assets/icons/wind.png" class="weather-widget-smicon" />
+      {{ this.data.wind.speed | number: "1.0-0" }} m/s
+    </p>
+    <p class="weather-widget-sunrise">
+      <img
+        src="../../../assets/icons/sunrise.png"
+        class="weather-widget-smicon"
+      />
+      {{ this.data.sys.sunriseLocaltime | date: "shortTime" }}
+    </p>
+    <p class="weather-widget-sunset">
+      <img
+        src="../../../assets/icons/sunset.png"
+        class="weather-widget-smicon"
+      />
+      {{ this.data.sys.sunsetLocaltime | date: "shortTime" }}
+    </p>
+  </div>
+
+  <div class="weather-widget-datetime">
+    <p class="weather-widget-date">
+      {{ this.data.time | date: "EEE, MMM d, y" }}
+    </p>
+    <div class="weather-widget-time">
+      {{ this.data.time | date: "shortTime" }}
+      <p class="weather-widget-timezone">GMT{{ this.data.timezoneStr }}</p>
+    </div>
+  </div>
+  <app-forecast
+    class="weather-widget-forecasts"
+    [list]="forecast.list"
+  ></app-forecast>
+</div>

@@ -1,0 +1,17 @@
+<div class="forecast" *ngFor="let item of list">
+  <p class="forecast-day">
+    {{ item.dt * 1000 | date: "EEE" }}
+  </p>
+  <img
+    src="http://openweathermap.org/img/wn/{{ item.weather[0].icon }}@2x.png"
+    alt="weather icon"
+    height="60px"
+    width="60px"
+  />
+  <p class="forecast-temp">{{ item.main.temp | number: "1.0-0" }} °C</p>
+  <p class="forecast-minmax">
+    {{ item.main.temp_min | number: "1.0-0" }} /
+    {{ item.main.temp_max | number: "1.0-0" }}
+    °C
+  </p>
+</div>

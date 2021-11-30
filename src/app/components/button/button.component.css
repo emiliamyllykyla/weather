@@ -1,0 +1,11 @@
+.btn-search {
+  border: none;
+  padding: 0px 15px;
+  cursor: pointer;
+  background-color: rgb(133, 249, 191);
+  height: 100%;
+}
+
+.btn-search:hover {
+  background-color: rgba(131, 249, 190, 0.7);
+}

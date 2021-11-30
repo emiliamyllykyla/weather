@@ -1,0 +1,10 @@
+<form class="search" (ngSubmit)="onSubmit()">
+  <input
+    name="query"
+    [(ngModel)]="query"
+    type="text"
+    class="search-input"
+    placeholder="E.g. Salo, FI"
+  />
+  <app-button classname="btn-search" text="Search" type="submit"></app-button>
+</form>

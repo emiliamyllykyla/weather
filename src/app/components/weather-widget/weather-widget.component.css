@@ -1,0 +1,139 @@
+.weather-widget {
+  display: grid;
+  grid-template-areas:
+    "dt dt"
+    "loc loc"
+    "temp temp"
+    "img img"
+    "info info"
+    "fc fc";
+  color: white;
+  padding: 1em;
+  margin: 1em;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+}
+
+.weather-widget-img {
+  grid-area: img;
+  margin: 0 auto;
+}
+
+.weather-widget-temp {
+  grid-area: temp;
+  margin: 0 auto;
+  font-size: 3.5em;
+  font-weight: 100;
+  align-self: center;
+}
+
+.weather-widget-info {
+  grid-area: info;
+  display: grid;
+  grid-template-areas:
+    "minmax feel"
+    "hum sunrise"
+    "wind sunset";
+  margin: 0 auto 1em auto;
+  column-gap: 1em;
+}
+
+.weather-widget-info > *:not(.weather-widget-feelslike) {
+  position: relative;
+  margin-left: 1.4em;
+  margin-top: 0.3em;
+}
+
+.weather-widget-smicon {
+  height: 18px;
+  width: 18px;
+  filter: invert(1);
+  margin-right: 0.2em;
+  position: absolute;
+  left: -1.4em;
+}
+
+.weather-widget-minmax {
+  grid-area: minmax;
+  align-self: end;
+}
+
+.weather-widget-feelslike {
+  grid-area: feel;
+  align-self: end;
+}
+
+.weather-widget-humidity {
+  grid-area: hum;
+  align-self: end;
+}
+
+.weather-widget-wind {
+  grid-area: wind;
+  align-self: end;
+}
+
+.weather-widget-sunrise {
+  grid-area: sunrise;
+}
+
+.weather-widget-sunset {
+  grid-area: sunset;
+}
+
+.weather-widget-location {
+  grid-area: loc;
+  margin: 1em auto;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.weather-widget-datetime {
+  grid-area: dt;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0.8;
+  font-size: 0.8rem;
+}
+
+.weather-widget-time {
+  font-size: 1.4em;
+  text-align: right;
+}
+
+.weather-widget-timezone {
+  font-size: 0.7em;
+}
+
+.weather-widget-forecasts {
+  grid-area: fc;
+  display: flex;
+  gap: 0.6em;
+  margin-top: 1em;
+  overflow: scroll;
+}
+
+@media only screen and (min-width: 470px) {
+  .weather-widget {
+    grid-template-areas:
+      "loc loc loc loc loc loc loc loc loc loc"
+      "temp temp temp temp img img img img img img"
+      "info info info info info info dt dt dt dt"
+      "info info info info info info dt dt dt dt"
+      "info info info info info info dt dt dt dt"
+      "fc fc fc fc fc fc fc fc fc fc";
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    max-width: 470px;
+    margin: 1em auto;
+  }
+  .weather-widget-datetime {
+    flex-direction: column;
+    text-align: right;
+    align-self: flex-end;
+    font-size: 0.9rem;
+  }
+  .weather-widget-info {
+    align-self: flex-end;
+    margin: 0;
+  }
+}

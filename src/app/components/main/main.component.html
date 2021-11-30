@@ -1,0 +1,10 @@
+<main>
+  <app-weather-widget
+    *ngIf="data && forecast; else prompt"
+    [data]="data"
+    [forecast]="forecast"
+  ></app-weather-widget>
+  <ng-template #prompt>
+    <div class="main-content">Search for a city!</div>
+  </ng-template>
+</main>
