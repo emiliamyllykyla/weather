@@ -5,8 +5,7 @@
   <img
     src="https://openweathermap.org/img/wn/{{ item.weather[0].icon }}@2x.png"
     alt="weather icon"
-    height="60px"
-    width="60px"
+    class="forecast-icon"
   />
   <p class="forecast-temp">{{ item.main.temp | number: "1.0-0" }} °C</p>
   <p class="forecast-minmax">

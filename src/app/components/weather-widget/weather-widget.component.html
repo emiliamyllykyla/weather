@@ -15,7 +15,7 @@
     <p class="weather-widget-minmax">
       <img
         src="../../../assets/icons/temperature.png"
-        class="weather-widget-smicon"
+        class="weather-widget-info-icon"
       />
       {{ this.data.main.temp_min | number: "1.0-0" }} /
       {{ this.data.main.temp_max | number: "1.0-0" }} °C
@@ -26,25 +26,28 @@
     <p class="weather-widget-humidity">
       <img
         src="../../../assets/icons/humidity.png"
-        class="weather-widget-smicon"
+        class="weather-widget-info-icon"
       />
       {{ this.data.main.humidity }} %
     </p>
     <p class="weather-widget-wind">
-      <img src="../../../assets/icons/wind.png" class="weather-widget-smicon" />
+      <img
+        src="../../../assets/icons/wind.png"
+        class="weather-widget-info-icon"
+      />
       {{ this.data.wind.speed | number: "1.0-0" }} m/s
     </p>
     <p class="weather-widget-sunrise">
       <img
         src="../../../assets/icons/sunrise.png"
-        class="weather-widget-smicon"
+        class="weather-widget-info-icon"
       />
       {{ this.data.sys.sunriseLocaltime | date: "shortTime" }}
     </p>
     <p class="weather-widget-sunset">
       <img
         src="../../../assets/icons/sunset.png"
-        class="weather-widget-smicon"
+        class="weather-widget-info-icon"
       />
       {{ this.data.sys.sunsetLocaltime | date: "shortTime" }}
     </p>
