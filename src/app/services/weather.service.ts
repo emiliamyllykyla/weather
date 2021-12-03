@@ -17,7 +17,7 @@ export class WeatherService {
 
   getCurrentWeather(query: string): Observable<Weather> {
     return this.http.get<Weather>(
-      `${this.URL}weather?q="${query}&APPID=${this.APIkey}&units=metric`
+      `${this.URL}weather?q=${query}&APPID=${this.APIkey}&units=metric`
     );
   }
 
