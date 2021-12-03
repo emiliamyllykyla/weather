@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
 import { WeatherService } from './weather.service';
 import { Weather } from '../Weather';
 import { Forecast } from '../Forecast';
@@ -13,19 +13,12 @@ export class DataService {
   private forecastData = new BehaviorSubject<Forecast | null>(null);
   public forecastData$ = this.forecastData.asObservable();
 
-  constructor(private weatherService: WeatherService) {}
+  constructor() {}
 
   setWeatherData(weather: Weather) {
     this.weatherData.next(weather);
   }
   setForecastData(forecast: Forecast) {
     this.forecastData.next(forecast);
-  }
-
-  fetchWeatherData(query: string) {
-    return this.weatherService.getCurrentWeather(query);
-  }
-  fetchForecastData(query: string) {
-    return this.weatherService.getForecast(query);
   }
 }
