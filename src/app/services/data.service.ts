@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
-import { WeatherService } from './weather.service';
+import { BehaviorSubject } from 'rxjs';
 import { Weather } from '../Weather';
 import { Forecast } from '../Forecast';
 

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Weather } from '../Weather';
-import { Forecast } from '../Forecast';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +12,17 @@ export class WeatherService {
 
   constructor(private http: HttpClient) {}
 
-  getCurrentWeather(query: string): Observable<Weather> {
-    return this.http.get<Weather>(
-      `${this.URL}weather?q=${query}&APPID=${this.APIkey}&units=metric`
-    );
+  fetchAPI(query: string, api: string) {
+    return fetch(
+      `${this.URL}${api}?q=${query}&APPID=${this.APIkey}&units=metric`
+    ).then((res) => res.json());
   }
 
-  getForecast(query: string): Observable<Forecast> {
-    return this.http.get<Forecast>(
-      `${this.URL}forecast?q=${query}&APPID=${this.APIkey}&units=metric`
-    );
+  getCurrentWeather(query: string) {
+    return this.fetchAPI(query, 'weather');
+  }
+
+  getForecast(query: string) {
+    return this.fetchAPI(query, 'forecast');
   }
 }
