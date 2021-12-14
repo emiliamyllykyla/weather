@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Coordinates } from '../City';
+import { Forecast } from '../Forecast';
+import { Weather } from '../Weather';
 
 @Injectable({
   providedIn: 'root',
@@ -10,19 +12,26 @@ export class WeatherService {
   APIkey = 'a0785b34a3a6db1b43f873064326248e';
   URL = 'https://api.openweathermap.org/data/2.5/';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  fetchAPI(query: string, api: string) {
+  fetchAPI(param: string | Coordinates, api: 'weather' | 'forecast') {
+    // Search by city name (user typed input and clicked "search")
+    // or coordinates(user clicked an option in suggestion dropdown)
+    const searchBy =
+      typeof param === 'string'
+        ? `q=${param}`
+        : `lat=${param.lat}&lon=${param.lon}`;
+
     return fetch(
-      `${this.URL}${api}?q=${query}&APPID=${this.APIkey}&units=metric`
+      `${this.URL}${api}?${searchBy}&APPID=${this.APIkey}&units=metric`
     ).then((res) => res.json());
   }
 
-  getCurrentWeather(query: string) {
-    return this.fetchAPI(query, 'weather');
+  getCurrentWeather(param: string | Coordinates): Promise<Weather> {
+    return this.fetchAPI(param, 'weather');
   }
 
-  getForecast(query: string) {
-    return this.fetchAPI(query, 'forecast');
+  getForecast(param: string | Coordinates): Promise<Forecast> {
+    return this.fetchAPI(param, 'forecast');
   }
 }

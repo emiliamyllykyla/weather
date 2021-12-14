@@ -1,10 +1,33 @@
-<form class="search" (ngSubmit)="onSubmit()">
-  <input
-    name="query"
-    [(ngModel)]="query"
-    type="text"
-    class="search-input"
-    placeholder="E.g. Salo, FI"
-  />
-  <app-button classname="btn-search" text="Search" type="submit"></app-button>
-</form>
+<div class="search">
+  <form (ngSubmit)="onSubmit()">
+    <div class="search-box" [ngClass]="{ 'results-shown': results.length > 0 }">
+      <input
+        [formControl]="search"
+        type="text"
+        class="search-input"
+        [ngClass]="{ 'results-shown': results.length > 0 }"
+        placeholder="E.g. Salo, FI"
+      />
+      <app-button
+        classname="btn-search"
+        text="Search"
+        type="submit"
+      ></app-button>
+    </div>
+  </form>
+  <div *ngIf="results.length > 0" class="search-results">
+    <div
+      *ngFor="let item of results"
+      class="search-result"
+      (click)="onSubmit({ lon: item.lon, lat: item.lat })"
+    >
+      {{ item.address?.village ? item.address.village + "," : "" }}
+      {{ item.address?.town ? item.address.town + "," : "" }}
+      {{ item.address?.city ? item.address.city + "," : "" }}
+      {{ item.address?.province ? item.address.province + "," : "" }}
+      {{ item.address?.county ? item.address.county + "," : "" }}
+      {{ item.address?.state ? item.address.state + "," : "" }}
+      {{ item.address?.country }}
+    </div>
+  </div>
+</div>

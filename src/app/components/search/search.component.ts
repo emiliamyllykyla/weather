@@ -1,36 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { WeatherService } from 'src/app/services/weather.service';
+import { CitiesService } from 'src/app/services/cities.service';
+import { City, Coordinates } from 'src/app/City';
+
+import { FormControl } from '@angular/forms';
+import { debounceTime, Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
 })
-export class SearchComponent implements OnInit {
-  query!: string;
+export class SearchComponent implements OnInit, OnDestroy {
+  subscription!: Subscription;
+  search = new FormControl('');
+  results: City[] = [];
 
   constructor(
     private dataService: DataService,
-    private weatherService: WeatherService
+    private weatherService: WeatherService,
+    private citiesService: CitiesService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.search.valueChanges
+      .pipe(
+        debounceTime(400),
+        switchMap((res) => this.citiesService.fetchCities(res))
+      )
+      .subscribe(
+        (cities) =>
+          (this.results = cities.filter(
+            (city: City) => city.class === 'boundary' || city.class === 'place'
+          ))
+      );
+  }
 
-  onSubmit() {
-    if (!this.query) return;
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  onSubmit(coord?: Coordinates) {
+    if (!this.search.value) return;
+    this.results = [];
+    const param = coord || this.search.value;
     Promise.all([
-      this.weatherService.getCurrentWeather(this.query),
-      this.weatherService.getForecast(this.query),
+      this.weatherService.getCurrentWeather(param),
+      this.weatherService.getForecast(param),
     ])
-      .then(([res1, res2]) => {
-        if (res1.cod !== 200) {
-          throw res1;
-        } else if (res2.cod !== '200') {
-          throw res2;
+      .then(([weather, forecast]) => {
+        if (weather.cod !== 200) {
+          throw weather;
+        } else if (forecast.cod !== '200') {
+          throw forecast;
         }
-        this.dataService.setWeatherData(res1);
-        this.dataService.setForecastData(res2);
+        this.dataService.setWeatherData(weather);
+        this.dataService.setForecastData(forecast);
       })
       .catch((error) => {
         const str = error.message;
@@ -39,6 +65,6 @@ export class SearchComponent implements OnInit {
         console.log(msg);
         alert(msg);
       });
-    this.query = '';
+    this.search.setValue('');
   }
 }

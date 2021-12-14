@@ -11,6 +11,7 @@ import { SearchComponent } from './components/search/search.component';
 import { MainComponent } from './components/main/main.component';
 import { WeatherWidgetComponent } from './components/weather-widget/weather-widget.component';
 import { ForecastComponent } from './components/forecast/forecast.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,13 @@ import { ForecastComponent } from './components/forecast/forecast.component';
     WeatherWidgetComponent,
     ForecastComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
