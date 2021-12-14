@@ -1,19 +1,17 @@
 <div class="search">
-  <form (ngSubmit)="onSubmit()">
-    <div class="search-box" [ngClass]="{ 'results-shown': results.length > 0 }">
-      <input
-        [formControl]="search"
-        type="text"
-        class="search-input"
-        [ngClass]="{ 'results-shown': results.length > 0 }"
-        placeholder="E.g. Salo, FI"
-      />
-      <app-button
-        classname="btn-search"
-        text="Search"
-        type="submit"
-      ></app-button>
-    </div>
+  <form
+    (ngSubmit)="onSubmit()"
+    class="search-form"
+    [ngClass]="{ 'results-shown': results.length > 0 }"
+  >
+    <input
+      [formControl]="search"
+      type="text"
+      class="search-input"
+      [ngClass]="{ 'results-shown': results.length > 0 }"
+      placeholder="E.g. Salo, FI"
+    />
+    <app-button classname="btn-search" text="Search" type="submit"></app-button>
   </form>
   <div *ngIf="results.length > 0" class="search-results">
     <div

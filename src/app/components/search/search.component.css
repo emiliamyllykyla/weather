@@ -4,7 +4,7 @@
   width: 350px;
 }
 
-.search-box {
+.search-form {
   display: flex;
   justify-content: space-between;
   background-color: white;
@@ -12,7 +12,7 @@
   overflow: hidden;
 }
 
-.search-box.results-shown {
+.search-form.results-shown {
   border-radius: 16px 16px 0 0;
 }
 
