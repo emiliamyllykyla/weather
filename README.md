@@ -1,27 +1,29 @@
-# Weather
+<p align="center">
+  <img height="400px" src="https://user-images.githubusercontent.com/63544185/145991059-72a36da7-47fa-4b53-97ff-690cb7e4fcfc.png"/>
+</p>
+<h1 align="center" >🌤️ Weather ❄️</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+🔗 [Visit here!](https://cloudytoday.netlify.app/)
 
-## Development server
+Check the weather anywhere in the world!
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* Autocomplete using reactive typeahead search.
+* Type something and  choose a suggestion or just press "search".
+* See the current weather and forecast for the following 4-5 days.
 
-## Code scaffolding
+<p align="center">
+    <img height="400px" src="https://user-images.githubusercontent.com/63544185/145992448-8ecf2895-bd01-4f5a-ad44-301da38b9a16.png"/>
+</p>
+<p align="center">Autocomplete search</p>
+<br>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<h2>Technologies</h2>
 
-## Build
+* This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+* Written in [Angular](https://angular.io/)
+* Weather data using [OpenWeatherMap API](https://openweathermap.org/)
+* Cities using [Nominatim API](https://nominatim.org/)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<h2>Development server</h2>
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run `ng serve` for a dev server.
