@@ -12,6 +12,7 @@ import { MainComponent } from './components/main/main.component';
 import { WeatherWidgetComponent } from './components/weather-widget/weather-widget.component';
 import { ForecastComponent } from './components/forecast/forecast.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MainComponent,
     WeatherWidgetComponent,
     ForecastComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,
