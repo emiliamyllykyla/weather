@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { WeatherService } from 'src/app/services/weather.service';
 import { CitiesService } from 'src/app/services/cities.service';
@@ -66,5 +73,43 @@ export class SearchComponent implements OnInit, OnDestroy {
         alert(msg);
       });
     this.search.setValue('');
+  }
+
+  // Navigate results using arrow keys or tab
+  onKeyDown(e: KeyboardEvent, index: number) {
+    e.stopPropagation();
+    e.preventDefault();
+    const current = document.activeElement;
+    const last = this.results.length - 1;
+
+    switch (e.key) {
+      case 'ArrowUp':
+        (
+          (index === 0
+            ? current?.parentNode?.lastElementChild
+            : current?.previousElementSibling) as HTMLElement
+        ).focus();
+        break;
+      case 'ArrowDown':
+        (
+          (index === last
+            ? current?.parentNode?.firstChild
+            : current?.nextElementSibling) as HTMLElement
+        ).focus();
+        break;
+
+      case 'Tab':
+        index === last
+          ? (current as HTMLElement).blur()
+          : (current?.nextElementSibling as HTMLElement).focus();
+        break;
+
+      case 'Enter':
+        this.onSubmit({
+          lon: this.results[index].lon,
+          lat: this.results[index].lat,
+        });
+        break;
+    }
   }
 }

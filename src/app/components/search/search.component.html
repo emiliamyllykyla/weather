@@ -11,13 +11,19 @@
       [ngClass]="{ 'results-shown': results.length > 0 }"
       placeholder="E.g. Salo, FI"
     />
-    <app-button classname="btn-search" text="Search" type="submit"></app-button>
+    <app-button
+      classname="btn-search"
+      text="Search"
+      type="submit"
+    ></app-button>
   </form>
   <div *ngIf="results.length > 0" class="search-results">
     <div
-      *ngFor="let item of results"
+      *ngFor="let item of results; let i = index"
+      tabindex="0"
       class="search-result"
       (click)="onSubmit({ lon: item.lon, lat: item.lat })"
+      (keydown)="onKeyDown($event, i)"
     >
       {{ item.address?.village ? item.address.village + "," : "" }}
       {{ item.address?.town ? item.address.town + "," : "" }}
