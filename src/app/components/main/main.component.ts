@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FcListItem, Forecast } from 'src/app/Forecast';
+import { Forecast, ForecastList } from 'src/app/Forecast';
 import { DataService } from 'src/app/services/data.service';
-import { Weather, CustomWeatherData } from 'src/app/Weather';
+import { Weather, Custom } from 'src/app/Weather';
 
 @Component({
   selector: 'app-main',
@@ -9,15 +9,17 @@ import { Weather, CustomWeatherData } from 'src/app/Weather';
   styleUrls: ['./main.component.css'],
 })
 export class MainComponent implements OnInit {
-  data!: CustomWeatherData | null;
-  forecast!: Forecast | null;
+  weather!: Weather | null;
+  custom!: Custom | null;
+  forecast!: ForecastList | null;
 
   constructor(private dataService: DataService) {
-    dataService.weatherData$.subscribe(
-      (weatherData) => (this.data = this.makeWeatherData(weatherData))
-    );
+    dataService.weatherData$.subscribe((weatherData) => {
+      this.weather = weatherData;
+      this.custom = this.makeCustom(weatherData);
+    });
     dataService.forecastData$.subscribe(
-      (fcData) => (this.forecast = this.makeForecastData(fcData))
+      (fcData) => (this.forecast = this.makeForecastList(fcData))
     );
   }
 
@@ -27,24 +29,30 @@ export class MainComponent implements OnInit {
 
   // Additional data to display time correctly,
   // local time in the location in question.
-  makeWeatherData(data: Weather | null) {
-    if (!data) return null;
-    return {
-      ...data,
-      time: this.makeDateTime(data.timezone),
-      timezoneStr: this.makeTimezoneStr(data.timezone),
-      sys: {
-        ...data.sys,
-        sunriseLocaltime: this.makeDateTime(data.timezone, data.sys.sunrise),
-        sunsetLocaltime: this.makeDateTime(data.timezone, data.sys.sunset),
-      },
-    };
+  makeCustom(weather: Weather | null): Custom | null {
+    return !weather
+      ? null
+      : {
+          time: this.makeDateTime(weather.timezone),
+          timezoneStr: this.makeTimezoneStr(weather.timezone),
+          sunriseLocaltime: this.makeDateTime(
+            weather.timezone,
+            weather.sys.sunrise
+          ),
+          sunsetLocaltime: this.makeDateTime(
+            weather.timezone,
+            weather.sys.sunset
+          ),
+        };
   }
 
   // Getting around how Date object works:
   // Convert a given time so that the browser will display
   // it as is the local time in the queried city.
-  makeDateTime(timezoneOffset: number | null, time?: number | null) {
+  makeDateTime(
+    timezoneOffset: number | null,
+    time?: number | null
+  ): Date | null {
     if (timezoneOffset !== 0 && !timezoneOffset) return null;
     let d = time ? new Date(time * 1000) : new Date();
     let localTime = d.getTime();
@@ -56,7 +64,7 @@ export class MainComponent implements OnInit {
   }
 
   // E.g. +02:00
-  makeTimezoneStr(timezoneOffset: number | null) {
+  makeTimezoneStr(timezoneOffset: number | null): string | null {
     if (timezoneOffset !== 0 && !timezoneOffset) return null;
     const seconds = timezoneOffset;
     const hours = Math.abs(Math.floor(seconds / 3600));
@@ -68,23 +76,16 @@ export class MainComponent implements OnInit {
 
   // FORECAST: Weather for the following 5 days every 3 hours
 
-  makeForecastData(fcData: Forecast | null) {
+  // Make a list where, for each day, include only the
+  // forecast for between 12:00-14:00 (local time of the city in question).
+  makeForecastList(fcData: Forecast | null): ForecastList | null {
     if (!fcData) return null;
-    return {
-      ...fcData,
-      list: this.makeCustomForecastList(fcData.list, fcData.city.timezone),
-    };
-  }
-
-  // Make a new list where, for each day, include only the
-  // forecast for between 12:00-14:00
-  // (local time of the city in question).
-  makeCustomForecastList(list: FcListItem[], timezoneOffset: number) {
+    const timezoneOffset = fcData.city.timezone;
     // Convert timezoneOffset (seconds) to hours
     const timeoffset = timezoneOffset / 3600;
-    return list.filter((item) => {
+    return fcData.list.filter((item) => {
       const dt = new Date(item.dt * 1000);
-      // Check time
+      // Check if it's noon
       const h = dt.getUTCHours() + timeoffset;
       const time = h < 0 ? 24 + h : h;
       const isNoon = 12 <= time && time <= 14;

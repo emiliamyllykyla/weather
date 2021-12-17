@@ -1,13 +1,13 @@
 <div class="weather-widget">
   <p class="weather-widget-location">
-    {{ this.data.name }}, {{ this.data.sys.country }}
+    {{ this.weather.name }}, {{ this.weather.sys.country }}
   </p>
   <p class="weather-widget-temp">
-    {{ this.data.main.temp | number: "1.0-0" }} °C
+    {{ this.weather.main.temp | number: "1.0-0" }} °C
   </p>
   <img
     src="https://openweathermap.org/img/wn/{{
-      this.data.weather[0].icon
+      this.weather.weather[0].icon
     }}@4x.png"
     class="weather-widget-img"
   />
@@ -17,53 +17,53 @@
         src="../../../assets/icons/temperature.png"
         class="weather-widget-info-icon"
       />
-      {{ this.data.main.temp_min | number: "1.0-0" }} /
-      {{ this.data.main.temp_max | number: "1.0-0" }} °C
+      {{ this.weather.main.temp_min | number: "1.0-0" }} /
+      {{ this.weather.main.temp_max | number: "1.0-0" }} °C
     </p>
     <p class="weather-widget-feelslike">
-      Feels like: {{ this.data.main.feels_like | number: "1.0-0" }} °C
+      Feels like: {{ this.weather.main.feels_like | number: "1.0-0" }} °C
     </p>
     <p class="weather-widget-humidity">
       <img
         src="../../../assets/icons/humidity.png"
         class="weather-widget-info-icon"
       />
-      {{ this.data.main.humidity }} %
+      {{ this.weather.main.humidity }} %
     </p>
     <p class="weather-widget-wind">
       <img
         src="../../../assets/icons/wind.png"
         class="weather-widget-info-icon"
       />
-      {{ this.data.wind.speed | number: "1.0-0" }} m/s
+      {{ this.weather.wind.speed | number: "1.0-0" }} m/s
     </p>
     <p class="weather-widget-sunrise">
       <img
         src="../../../assets/icons/sunrise.png"
         class="weather-widget-info-icon"
       />
-      {{ this.data.sys.sunriseLocaltime | date: "shortTime" }}
+      {{ this.custom.sunriseLocaltime | date: "shortTime" }}
     </p>
     <p class="weather-widget-sunset">
       <img
         src="../../../assets/icons/sunset.png"
         class="weather-widget-info-icon"
       />
-      {{ this.data.sys.sunsetLocaltime | date: "shortTime" }}
+      {{ this.custom.sunsetLocaltime | date: "shortTime" }}
     </p>
   </div>
 
   <div class="weather-widget-datetime">
     <p class="weather-widget-date">
-      {{ this.data.time | date: "EEE, MMM d, y" }}
+      {{ this.custom.time | date: "EEE, MMM d, y" }}
     </p>
     <div class="weather-widget-time">
-      {{ this.data.time | date: "shortTime" }}
-      <p class="weather-widget-timezone">GMT{{ this.data.timezoneStr }}</p>
+      {{ this.custom.time | date: "shortTime" }}
+      <p class="weather-widget-timezone">GMT{{ this.custom.timezoneStr }}</p>
     </div>
   </div>
   <app-forecast
     class="weather-widget-forecasts"
-    [list]="forecast.list"
+    [forecast]="forecast"
   ></app-forecast>
 </div>

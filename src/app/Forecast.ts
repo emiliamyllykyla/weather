@@ -1,4 +1,4 @@
-export type FcListItem = {
+export type ForecastList = {
   dt: number;
   main: {
     temp: number;
@@ -33,13 +33,13 @@ export type FcListItem = {
     pod: string;
   };
   dt_txt: string;
-};
+}[];
 
 export type Forecast = {
   cod: string;
   message: number;
   cnt: number;
-  list: FcListItem[];
+  list: ForecastList;
   city: {
     id: number;
     name: string;

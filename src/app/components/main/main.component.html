@@ -1,7 +1,8 @@
 <main>
   <app-weather-widget
-    *ngIf="data && forecast; else prompt"
-    [data]="data"
+    *ngIf="weather && custom && forecast; else prompt"
+    [weather]="weather"
+    [custom]="custom"
     [forecast]="forecast"
   ></app-weather-widget>
   <ng-template #prompt>

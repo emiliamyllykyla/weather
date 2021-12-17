@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FcListItem } from 'src/app/Forecast';
+import { ForecastList } from 'src/app/Forecast';
 
 @Component({
   selector: 'app-forecast',
@@ -7,7 +7,7 @@ import { FcListItem } from 'src/app/Forecast';
   styleUrls: ['./forecast.component.css'],
 })
 export class ForecastComponent implements OnInit {
-  @Input() list!: FcListItem[];
+  @Input() forecast!: ForecastList;
 
   constructor() {}
 
